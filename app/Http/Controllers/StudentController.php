@@ -21,10 +21,10 @@ class StudentController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name'=> 'required|max:191',
-            'course'=>'required|max:191',
-            'email'=>'required|email|max:191',
-            'phone'=>'required|max:11|min:11',
+            'name'=> 'required',
+            'course'=>'required',
+            'email'=>'required|email',
+            'phone'=>'required',
         ]);
 
 
@@ -36,8 +36,6 @@ class StudentController extends Controller
             ]);
 
         }else{
-
-            // dd('sd');
             $student = new Student;
             $student->name = $request->input('name');
             $student->course = $request->input('course');
@@ -55,25 +53,34 @@ class StudentController extends Controller
 
 
 
-    // public function edit($id)
-    // {
-    //     $student = Student::find($id);
-    //     if($student)
-    //     {
-    //         return response()->json([
-    //             'status'=>200,
-    //             'student'=> $student,
-    //         ]);
-    //     }
-    //     else
-    //     {
-    //         return response()->json([
-    //             'status'=>404,
-    //             'message'=>'No Student Found.'
-    //         ]);
-    //     }
+    public function fetchstudent()
+    {
+        $students = Student::all();
+        return response()->json([
+            'students'=>$students,
+        ]);
+    }
 
-    // }
+
+    public function edit($id)
+    {
+        $student = Student::find($id);
+        if($student)
+        {
+            return response()->json([
+                'status'=>200,
+                'student'=> $student,
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status'=>404,
+                'message'=>'No Student Found.'
+            ]);
+        }
+
+    }
 
     // public function update(Request $request, $id)
     // {
